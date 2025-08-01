@@ -1,0 +1,6 @@
+{
+  "name": "Aesthetic Treatment & Care Plan Builder",
+  "description": "An application for creating, customizing, and sharing personalized aesthetic treatment plans for patients. It allows starting from templates, adding phases and treatments, and exporting the final plan as a PDF.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

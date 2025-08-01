@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aesthetic Treatment & Care Plan Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
+            colors: {
+              'brand-primary': '#547BA3',
+              'brand-primary-dark': '#416288',
+              'brand-secondary': '#C5CCD9',
+              'brand-text-primary': '#344054',
+              'brand-text-secondary': '#667085',
+              'brand-text-body': '#8C95A4',
+              'brand-background-default': '#FFFFFF',
+              'brand-background-soft': '#F9FAFB',
+              'brand-background-medium': '#F2F4F7',
+              'brand-background-strong': '#EAECF0',
+              'brand-success': '#17826A',
+              'brand-warning': '#F79009',
+              'brand-error': '#FF6666',
+            },
+            boxShadow: {
+              'sm': '0px 0px 16px 2px #0000000A',
+              'md': '0px 0px 34px 3px #0000000F, 0px 2px 12px -2px #0000000F',
+            },
+            animation: {
+              'aurora-glow': 'aurora-glow 2s ease-out forwards',
+              'gradient-shift': 'gradient-shift 4s ease infinite',
+            },
+            keyframes: {
+              'aurora-glow': {
+                '0%, 100%': { opacity: '0' },
+                '20%, 80%': { opacity: '1' },
+              },
+              'gradient-shift': {
+                '0%': { 'background-position': '0% 50%' },
+                '50%': { 'background-position': '100% 50%' },
+                '100%': { 'background-position': '0% 50%' },
+              },
+            },
+            backgroundImage: {
+              'aurora-gradient': 'linear-gradient(212deg,#76c453,#23ffe7,#8f66cb,#24abeb,#88d5c1)',
+            },
+            backgroundSize: {
+              '300': '300% 300%',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "uuid": "https://esm.sh/uuid@^11.1.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.417.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
