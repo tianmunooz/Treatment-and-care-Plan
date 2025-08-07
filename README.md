@@ -2,8 +2,6 @@
 
 An advanced, AI-powered web application for creating, customizing, and sharing personalized aesthetic treatment plans. This tool is designed for medical aesthetic professionals to streamline their consultation workflow, enhance patient communication, and manage their services efficiently.
 
-![Application Screenshot](https://storage.googleapis.com/generative-ai-proctor/v1/user_uploaded_content/11696001151608753239/project_542561955620/instance_7673998379434863261/file_14954756306563380482_abstract-bg.jpg)
-
 ## Core Features
 
 - **AI-Powered Plan Generation**: Utilizes the Google Gemini API to instantly transform unstructured consultation notes into a complete, multi-phase treatment plan.
