@@ -25,7 +25,7 @@ export const TemplatePreview: React.FC<{
     <div className="bg-white rounded-2xl shadow-lg border border-brand-background-strong p-6 sm:p-8 max-w-3xl mx-auto text-left">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-2xl font-bold text-brand-text-primary">{template.title[language]}</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-brand-text-primary">{template.title[language]}</h3>
           <p className="text-md text-brand-text-secondary mt-1">{template.notes[language]}</p>
         </div>
         <span className="rounded-full bg-brand-primary px-3 py-1 text-xs font-bold text-white whitespace-nowrap shadow-sm">

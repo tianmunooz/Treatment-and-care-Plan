@@ -52,21 +52,6 @@ export const translations = {
     tutorialAdminLangTitle: 'Language Editing',
     tutorialAdminLangText: 'Switch between English and Spanish to add or edit translations for all your custom items, ensuring a bilingual experience.',
     nextPhase: 'Next Phase',
-    // Plan Builder Tutorial
-    tutorialPlanPatientTitle: 'Patient Information',
-    tutorialPlanPatientText: 'Start by filling out or verifying the patient\'s basic information. This will be displayed on the final PDF.',
-    tutorialPlanContraindicationsTitle: 'Medical History',
-    tutorialPlanContraindicationsText: 'Log any allergies, medications, or medical history that could affect treatment. This helps ensure patient safety.',
-    tutorialPlanPhasesTitle: 'Build The Plan',
-    tutorialPlanPhasesText: "Build the plan by adding phases and specific treatments. Click 'Add Treatment' to search your product catalog. You can also drag and drop to reorder.",
-    tutorialPlanAiTitle: 'AI Quick Suggestions',
-    tutorialPlanAiText: 'Get quick recommendations from our AI to add common or complementary treatments to the last phase of your plan.',
-    tutorialPlanAddPhaseTitle: 'Add More Phases',
-    tutorialPlanAddPhaseText: "Structure the treatment journey over time by adding multiple phases, such as 'Correction' or 'Maintenance'.",
-    tutorialPlanActionsTitle: 'Preview & Export',
-    tutorialPlanActionsText: 'Use these actions to save your progress, download a patient-ready PDF, or open a live patient-friendly preview.',
-    tutorialPlanFinalizeTitle: 'Finalize & Share',
-    tutorialPlanFinalizeText: 'Once the plan is complete, finalize it to lock it and prepare it for sharing with the patient.',
   },
   es: {
     // Header
@@ -119,21 +104,6 @@ export const translations = {
     tutorialAdminLangTitle: 'Edición de Idiomas',
     tutorialAdminLangText: 'Cambie entre inglés y español para agregar o editar traducciones para todos sus elementos personalizados, garantizando una experiencia bilingüe.',
     nextPhase: 'Siguiente Fase',
-    // Plan Builder Tutorial
-    tutorialPlanPatientTitle: 'Información del Paciente',
-    tutorialPlanPatientText: 'Comience llenando o verificando la información básica del paciente. Esto se mostrará en el PDF final.',
-    tutorialPlanContraindicationsTitle: 'Historial Médico',
-    tutorialPlanContraindicationsText: 'Registre cualquier alergia, medicamento o historial médico que pueda afectar el tratamiento. Esto ayuda a garantizar la seguridad del paciente.',
-    tutorialPlanPhasesTitle: 'Construya el Plan',
-    tutorialPlanPhasesText: "Construya el plan agregando fases y tratamientos específicos. Haga clic en 'Añadir Tratamiento' para buscar en su catálogo de productos. También puede arrastrar y soltar para reordenar.",
-    tutorialPlanAiTitle: 'Sugerencias Rápidas de IA',
-    tutorialPlanAiText: 'Obtenga recomendaciones rápidas de nuestra IA para agregar tratamientos comunes o complementarios a la última fase de su plan.',
-    tutorialPlanAddPhaseTitle: 'Añadir Más Fases',
-    tutorialPlanAddPhaseText: "Estructure el viaje de tratamiento a lo largo del tiempo agregando múltiples fases, como 'Corrección' o 'Mantenimiento'.",
-    tutorialPlanActionsTitle: 'Vista Previa y Exportar',
-    tutorialPlanActionsText: 'Use estas acciones para guardar su progreso, descargar un PDF listo para el paciente o abrir una vista previa en vivo amigable para el paciente.',
-    tutorialPlanFinalizeTitle: 'Finalizar y Compartir',
-    tutorialPlanFinalizeText: 'Una vez que el plan esté completo, finalícelo para bloquearlo y prepararlo para compartirlo con el paciente.',
   }
 };
 

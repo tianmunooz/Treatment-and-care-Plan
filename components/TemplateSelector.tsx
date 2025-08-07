@@ -64,11 +64,11 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
         {/* AI Suggestion Section */}
         <div
           id="tutorial-ai-suggestion"
-          className="relative pt-20 pb-64"
+          className="relative pt-12 pb-24 sm:pt-16 sm:pb-32"
         >
           <div className="relative mx-auto max-w-5xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-text-primary">{t('aiSuggestionTitle')}</h2>
-            <p className="mt-4 text-lg text-brand-text-secondary">
+            <h2 className="text-2xl sm:text-3xl font-bold text-brand-text-primary">{t('aiSuggestionTitle')}</h2>
+            <p className="mt-4 text-base sm:text-lg text-brand-text-secondary">
               {t('aiSuggestionSubtitle')}
             </p>
             
@@ -77,18 +77,18 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
                     <TextArea
                         value={consultNotes}
                         onChange={(e) => setConsultNotes(e.target.value)}
-                        placeholder="Describe the patient's concerns to generate a treatment plan... e.g., 'Patient Name: Jane Doe, 42 years old female, concerned about fine lines around the eyes and forehead, and some sun spots on her cheeks.'"
+                        placeholder="Describe patient concerns... e.g., 'Jane D., 42, forehead lines & cheek sun spots.'"
                         rows={4}
-                        inputClassName="bg-transparent border-none rounded-xl focus:ring-0 resize-none p-4 text-xl !mt-0 shadow-none"
+                        inputClassName="bg-transparent border-none rounded-xl focus:ring-0 resize-none p-4 text-base sm:text-lg !mt-0 shadow-none"
                     />
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
                              <button className="flex items-center justify-center w-9 h-9 rounded-full bg-white border border-brand-background-strong text-brand-text-secondary hover:bg-brand-background-soft transition-colors">
                                 <PlusIcon className="w-5 h-5" />
                             </button>
-                            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-brand-background-strong text-brand-text-secondary hover:bg-brand-background-soft transition-colors text-sm font-medium">
+                            <button className="flex items-center justify-center text-sm font-medium w-9 h-9 sm:w-auto sm:h-auto sm:gap-2 sm:px-4 sm:py-2 rounded-full bg-white border border-brand-background-strong text-brand-text-secondary hover:bg-brand-background-soft transition-colors">
                                 <FileTextIcon className="w-4 h-4" />
-                                Import Transcript
+                                <span className="hidden sm:inline">Import Transcript</span>
                             </button>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -132,7 +132,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({ onSelectTemp
         {/* Template Library Section */}
         <div id="tutorial-template-library" className="bg-white rounded-2xl shadow-md p-8 sm:p-12 mb-20">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-brand-text-primary mb-2">{t('orStartFromTemplate')}</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-brand-text-primary mb-2">{t('orStartFromTemplate')}</h3>
               </div>
               <div className="flex justify-center flex-wrap gap-2 mb-8">
                   <button

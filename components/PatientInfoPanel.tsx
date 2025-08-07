@@ -24,7 +24,7 @@ export const PatientInfoPanel: React.FC<PatientInfoPanelProps> = ({ plan, setPla
     };
 
     return (
-        <div id="tutorial-patient-info" className="bg-white rounded-2xl shadow-sm border border-brand-background-strong mb-4 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-brand-background-strong mb-4 overflow-hidden">
             <button
                 className="w-full flex justify-between items-center p-6 text-left"
                 onClick={() => setIsOpen(!isOpen)}

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Plan, Phase, Treatment, IconName, Definitions } from '../types';
@@ -32,7 +33,7 @@ const AiSuggestions = ({ onAddTreatment, language, t }: { onAddTreatment: (treat
   }
 
   return (
-    <div id="tutorial-ai-suggestions-builder" className="p-6 bg-white rounded-2xl shadow-sm border border-brand-background-strong mt-6">
+    <div className="p-6 bg-white rounded-2xl shadow-sm border border-brand-background-strong mt-6">
       <div className="flex items-center space-x-2">
         <SparkleIcon className="w-6 h-6 text-purple-600" />
         <h3 className="font-semibold text-lg text-brand-text-primary">{t('aiSuggestionsTitle')}</h3>
@@ -229,7 +230,7 @@ export const PlanBuilder: React.FC<PlanBuilderProps> = ({ plan, setPlan, languag
     <div className="p-4 md:p-6">
       <PatientInfoPanel plan={plan} setPlan={setPlan} />
       <ContraindicationsPanel plan={plan} setPlan={setPlan} />
-      <div id="tutorial-phases-container" className="mt-4">
+      <div className="mt-4">
           {plan.phases.map((phase, index) => (
             <React.Fragment key={phase.id}>
               {index > 0 && (
@@ -265,7 +266,7 @@ export const PlanBuilder: React.FC<PlanBuilderProps> = ({ plan, setPlan, languag
         </div>
 
         <div className="mt-6">
-          <Button id="tutorial-add-phase" variant="ghost" onClick={addPhase} Icon={PlusIcon} className="w-full justify-center py-3 shadow-none border-dashed hover:border-solid border-brand-background-strong text-brand-text-primary">
+          <Button variant="ghost" onClick={addPhase} Icon={PlusIcon} className="w-full justify-center py-3 shadow-none border-dashed hover:border-solid border-brand-background-strong text-brand-text-primary">
             Add Phase
           </Button>
         </div>

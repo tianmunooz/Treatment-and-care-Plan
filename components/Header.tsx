@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Plan, Language } from '../types';
 import { Button } from './common/Button';
@@ -70,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ plan, onBack, onDownloadPdf, lan
           </div>
           <div className="flex items-center space-x-2">
             {isPlanView && plan && (
-                <div id="tutorial-header-actions" className="hidden lg:flex items-center space-x-2">
+                <div className="hidden lg:flex items-center space-x-2">
                     <Button variant="secondary" Icon={SaveIcon}>{t('save')}</Button>
                     <Button variant="secondary" onClick={onDownloadPdf} Icon={DownloadIcon}>{t('pdf')}</Button>
                     <Button variant="secondary" Icon={EyeIcon}>{t('patientView')}</Button>
@@ -110,15 +111,27 @@ export const Header: React.FC<HeaderProps> = ({ plan, onBack, onDownloadPdf, lan
             )}
             
             {isMainViewHome && (
-                 <Button id="create-plan-button" variant="primary" onClick={onCreateBlankPlan} Icon={PlusIcon}>{t('patientPlan')}</Button>
+                <Button id="create-plan-button" variant="primary" onClick={onCreateBlankPlan} className="!p-2.5 sm:!py-2 sm:!px-4" aria-label={t('patientPlan')}>
+                    <PlusIcon className="w-5 h-5 sm:mr-2 sm:-ml-1" />
+                    <span className="hidden sm:inline">{t('patientPlan')}</span>
+                </Button>
             )}
 
             {isMainViewHome && (
-                 <Button id="tutorial-admin-button" variant="secondary" onClick={() => onSetView('admin')}>{t('admin')}</Button>
+                 <Button
+                    id="tutorial-admin-button"
+                    variant="secondary"
+                    onClick={() => onSetView('admin')}
+                    className="!p-2.5 sm:!py-2 sm:!px-4"
+                    aria-label={t('admin')}
+                 >
+                    <SettingsIcon className="w-5 h-5 sm:mr-2 sm:-ml-1" />
+                    <span className="hidden sm:inline">{t('admin')}</span>
+                </Button>
             )}
 
             {isPlanView && plan && (
-                <Button id="tutorial-finalize-button" variant="primary" Icon={ShareIcon}>{t('finalize')}</Button>
+                <Button variant="primary" Icon={ShareIcon}>{t('finalize')}</Button>
             )}
           </div>
         </div>

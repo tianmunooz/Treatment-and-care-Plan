@@ -23,7 +23,7 @@ export const ContraindicationsPanel: React.FC<ContraindicationsPanelProps> = ({ 
     };
 
     return (
-        <div id="tutorial-contraindications" className="bg-white rounded-2xl shadow-sm border border-brand-background-strong mb-4 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-brand-background-strong mb-4 overflow-hidden">
             <button
                 className="w-full flex justify-between items-center p-6 text-left"
                 onClick={() => setIsOpen(!isOpen)}

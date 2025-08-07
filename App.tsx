@@ -1,5 +1,4 @@
 
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Plan, PlanTemplate, Language, Definitions, Phase, Treatment, Translatable } from './types';
@@ -16,7 +15,7 @@ import { Button } from './components/common/Button';
 import { EyeIcon, CancelIcon, MessageCircleIcon, DownloadIcon } from './components/icons';
 
 type View = 'main' | 'admin';
-type TutorialType = 'main' | 'admin' | 'plan-builder' | null;
+type TutorialType = 'main' | 'admin' | null;
 
 const mainTutorialSteps = [
     {
@@ -48,51 +47,6 @@ const adminTutorialSteps = [
     { element: '#admin-save-button', titleKey: 'tutorialAdminSaveTitle' as TranslationKey, textKey: 'tutorialAdminSaveText' as TranslationKey, position: 'bottom' as const },
 ];
 
-const planBuilderTutorialSteps = [
-    {
-        element: '#tutorial-patient-info',
-        titleKey: 'tutorialPlanPatientTitle' as TranslationKey,
-        textKey: 'tutorialPlanPatientText' as TranslationKey,
-        position: 'right' as const,
-    },
-    {
-        element: '#tutorial-contraindications',
-        titleKey: 'tutorialPlanContraindicationsTitle' as TranslationKey,
-        textKey: 'tutorialPlanContraindicationsText' as TranslationKey,
-        position: 'right' as const,
-    },
-    {
-        element: '#tutorial-phases-container',
-        titleKey: 'tutorialPlanPhasesTitle' as TranslationKey,
-        textKey: 'tutorialPlanPhasesText' as TranslationKey,
-        position: 'right' as const,
-    },
-    {
-        element: '#tutorial-ai-suggestions-builder',
-        titleKey: 'tutorialPlanAiTitle' as TranslationKey,
-        textKey: 'tutorialPlanAiText' as TranslationKey,
-        position: 'top' as const,
-    },
-    {
-        element: '#tutorial-add-phase',
-        titleKey: 'tutorialPlanAddPhaseTitle' as TranslationKey,
-        textKey: 'tutorialPlanAddPhaseText' as TranslationKey,
-        position: 'top' as const,
-    },
-    {
-        element: '#tutorial-header-actions',
-        titleKey: 'tutorialPlanActionsTitle' as TranslationKey,
-        textKey: 'tutorialPlanActionsText' as TranslationKey,
-        position: 'bottom' as const,
-    },
-    {
-        element: '#tutorial-finalize-button',
-        titleKey: 'tutorialPlanFinalizeTitle' as TranslationKey,
-        textKey: 'tutorialPlanFinalizeText' as TranslationKey,
-        position: 'bottom' as const,
-    },
-];
-
 const App: React.FC = () => {
   const [currentPlan, setCurrentPlan] = useState<Plan | null>(null);
   const [language, setLanguage] = useState<Language>('en');
@@ -113,12 +67,6 @@ const App: React.FC = () => {
     } else if (type === 'admin') {
         setCurrentPlan(null);
         setView('admin');
-    } else if (type === 'plan-builder') {
-        if (!currentPlan) {
-            // Can't start plan tutorial without a plan, fall back.
-            endTutorial();
-            return;
-        }
     }
     setTutorialStep(0);
     setActiveTutorial(type);
@@ -321,7 +269,7 @@ const App: React.FC = () => {
   const tutorialSteps = 
     activeTutorial === 'main' ? mainTutorialSteps :
     activeTutorial === 'admin' ? adminTutorialSteps :
-    activeTutorial === 'plan-builder' ? planBuilderTutorialSteps : [];
+    [];
 
   return (
     <div className={`h-screen flex flex-col overflow-hidden transition-all duration-300 ${activeTutorial ? 'border-[10px] border-brand-primary rounded-xl shadow-2xl' : ''}`}>
@@ -343,14 +291,14 @@ const App: React.FC = () => {
         </div>
       </main>
 
-       {!activeTutorial && (
+       {!activeTutorial && !(view === 'main' && currentPlan) && (
          <div className="fixed bottom-6 right-6 z-40 group">
             <button
-              onClick={() => startTutorial(view === 'admin' ? 'admin' : (currentPlan ? 'plan-builder' : 'main'))}
+              onClick={() => startTutorial(view === 'admin' ? 'admin' : 'main')}
               className="w-16 h-16 bg-brand-primary rounded-full shadow-lg flex items-center justify-center text-white hover:bg-brand-primary-dark transition-transform transform group-hover:scale-110"
               aria-label={t('startTutorial')}
             >
-              <MessageCircleIcon className="w-8 h-8" />
+              <MessageCircleIcon className="w-7 h-7" />
             </button>
             <div className="absolute top-1/2 -translate-y-1/2 right-full mr-3 whitespace-nowrap bg-brand-text-primary text-white text-xs font-bold px-2 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
               {t('startTutorial')}

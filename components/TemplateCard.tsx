@@ -29,7 +29,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, onSelect, 
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-background-medium">
             <PlusIcon className="h-6 w-6 text-brand-primary" />
           </div>
-          <p className="text-xl font-semibold text-brand-text-primary">{title}</p>
+          <p className="text-base sm:text-lg font-semibold text-brand-text-primary">{title}</p>
         </div>
       </div>
     );
@@ -44,7 +44,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, onSelect, 
       )}
       <div className="flex flex-1 flex-col justify-between p-6">
         <div className="flex-1">
-          <p className="text-xl font-semibold text-brand-text-primary">{title}</p>
+          <p className="text-base sm:text-lg font-semibold text-brand-text-primary">{title}</p>
           <p className="mt-3 text-base text-brand-text-secondary">{notes}</p>
         </div>
         <div className="mt-6">
