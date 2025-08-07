@@ -10,6 +10,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+      body {
+        background: radial-gradient(75.26% 74.89% at 50% 67.99%, #A3C3DD 18.27%, #D0E1E9 42.79%, #DFE7ED 68.75%, #ECEFF0 78.37%, #FFF 92.31%);
+      }
+      .tutorial-highlight {
+        position: relative;
+        z-index: 1001; /* Above overlay, below popover */
+        box-shadow: 0 0 0 9999px rgba(52, 64, 84, 0.7);
+        border-radius: 8px;
+        transition: box-shadow 0.3s ease-in-out;
+      }
+      .tutorial-popover-arrow::before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
+      .tutorial-popover-arrow-bottom::before {
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 0 8px 8px 8px;
+        border-color: transparent transparent white transparent;
+      }
+       .tutorial-popover-arrow-top::before {
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 8px 0 8px;
+        border-color: white transparent transparent transparent;
+      }
+    </style>
     <script>
       tailwind.config = {
         theme: {
@@ -35,10 +68,12 @@
             boxShadow: {
               'sm': '0px 0px 16px 2px #0000000A',
               'md': '0px 0px 34px 3px #0000000F, 0px 2px 12px -2px #0000000F',
+              'tutorial': '0 4px 20px rgba(0, 0, 0, 0.2)',
             },
             animation: {
               'aurora-glow': 'aurora-glow 2s ease-out forwards',
               'gradient-shift': 'gradient-shift 4s ease infinite',
+              'shadow-pulse': 'shadow-pulse 2s ease-out forwards',
             },
             keyframes: {
               'aurora-glow': {
@@ -50,9 +85,14 @@
                 '50%': { 'background-position': '100% 50%' },
                 '100%': { 'background-position': '0% 50%' },
               },
+              'shadow-pulse': {
+                '0%, 100%': { boxShadow: '0 0 0 0 rgba(84, 123, 163, 0)' },
+                '20%, 80%': { boxShadow: '0px 5px 20px 0px rgba(84, 123, 163, 0.2)' },
+              },
             },
             backgroundImage: {
               'aurora-gradient': 'linear-gradient(212deg,#76c453,#23ffe7,#8f66cb,#24abeb,#88d5c1)',
+              'hero-background': "url('https://storage.googleapis.com/generative-ai-proctor/v1/user_uploaded_content/11696001151608753239/project_542561955620/instance_7673998379434863261/file_14954756306563380482_abstract-bg.jpg')",
             },
             backgroundSize: {
               '300': '300% 300%',
@@ -68,7 +108,8 @@
     "react": "https://esm.sh/react@^19.1.0",
     "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
     "uuid": "https://esm.sh/uuid@^11.1.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.417.0"
+    "lucide-react": "https://esm.sh/lucide-react@^0.417.0",
+    "@google/genai": "https://esm.sh/@google/genai"
   }
 }
 </script>

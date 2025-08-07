@@ -1,16 +1,48 @@
 
 
-export type IconName = 'Syringe' | 'Package' | 'Clock' | 'Facial' | 'Vial';
+
+export type Language = 'en' | 'es';
+
+export type IconName = 'Syringe' | 'Package' | 'Clock' | 'Facial' | 'Vial' | 'Sun';
+
+export type DynamicFieldName = 'targetArea' | 'units' | 'volume' | 'vials' | 'dosage' | 'application' | 'intensity' | 'technology';
+
+export type Translatable = {
+  [key in Language]: string;
+}
+
+export interface PracticeInfo {
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  website: string;
+  logoUrl: string;
+  provider: string;
+}
 
 export interface Treatment {
   id: string;
   week: string;
-  name: string;
+  categoryKey: string;
+  treatmentKey: string;
   goal: string;
   frequency: string;
   price: number;
+  pricePerUnit?: number;
   icon: IconName;
   keyInstructions: string;
+  discount?: number;
+  contraindications?: string;
+  // Category-specific optional fields
+  targetArea?: string[]; // These will be keys now
+  units?: string;
+  dosage?: string;
+  application?: string; // This will be a key
+  intensity?: string; // This will be a key
+  volume?: string;
+  vials?: string;
+  technology?: string; // This will be a key
 }
 
 export interface Phase {
@@ -21,8 +53,8 @@ export interface Phase {
 }
 
 export interface Plan {
-  id: string;
-  title: string;
+  id:string;
+  title: string; // This will become an i18n key
   patient: {
     name: string;
     age: number;
@@ -36,6 +68,7 @@ export interface Plan {
     phone: string;
     email: string;
     website: string;
+    logoUrl?: string;
   };
   contraindications: {
     medications: string;
@@ -57,8 +90,66 @@ export interface Plan {
     }[];
   };
   nextSteps: string[];
-  notes: string;
+  notes: string; // This will become an i18n key
 }
 
 
-export type PlanTemplate = Omit<Plan, 'id' | 'patient' | 'date' | 'providerVerified' | 'contraindications'>;
+export interface PlanTemplate {
+  id: string;
+  title: Translatable;
+  notes: Translatable;
+  categoryKey?: string;
+  phases: Phase[];
+  amRoutine: Plan['amRoutine'];
+  pmRoutine: Plan['pmRoutine'];
+  skincareInstructions: Plan['skincareInstructions'];
+  generalRecommendations: Plan['generalRecommendations'];
+  investment: Plan['investment'];
+  nextSteps: Plan['nextSteps'];
+}
+
+
+// Types for the new definitions structure
+export interface TreatmentDefinitionItem {
+  key: string;
+  name: Translatable;
+  fields: DynamicFieldName[];
+  defaults: Omit<Partial<Treatment>, 'id' | 'categoryKey' | 'treatmentKey' | 'goal' | 'contraindications'> & { 
+    goal: Translatable;
+    contraindications?: Translatable;
+    sku?: string;
+    cost?: number;
+    imageUrl?: string;
+    brand?: string;
+  };
+}
+
+export interface CategoryDefinition {
+  displayName: Translatable;
+  itemLabel: Translatable;
+  items: TreatmentDefinitionItem[];
+}
+
+export interface OptionDefinition {
+  key: string;
+  name: Translatable;
+}
+
+export interface Definitions {
+  practiceInfo: PracticeInfo;
+  categories: {
+    [key: string]: CategoryDefinition;
+  };
+  options: {
+    technologies: OptionDefinition[];
+    timelines: OptionDefinition[];
+    frequencies: OptionDefinition[];
+    targetAreas: OptionDefinition[];
+    intensities: OptionDefinition[];
+    applications: OptionDefinition[];
+    templateCategories: OptionDefinition[];
+    phaseTitles: OptionDefinition[];
+  };
+  treatmentIcons: { [key in IconName]: { label: string; icon: React.ElementType } };
+  planTemplates: PlanTemplate[];
+}
