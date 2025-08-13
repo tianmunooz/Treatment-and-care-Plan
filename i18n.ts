@@ -12,6 +12,51 @@ export const translations = {
     startTutorial: 'Start Tutorial',
     langEnglish: 'English',
     langSpanish: 'Español',
+    logout: 'Logout',
+    close: 'Close',
+
+    // Login
+    loginTitle: 'Welcome to Aesthetics 360',
+    loginSubtitle: 'The all-in-one platform to build, manage, and share aesthetic treatment plans.',
+    yourName: 'Your Name',
+    practiceName: 'Practice Name',
+    getStarted: 'Get Started',
+    signIn: 'Sign in',
+    signInSubtitle: 'Please enter your credentials to log in',
+    emailLabel: 'Email',
+    emailPlaceholder: 'your.email@company.com',
+    passwordLabel: 'Password',
+    passwordPlaceholder: 'Enter your password',
+    rememberMe: 'Remember me',
+    forgotPassword: 'Forgot password?',
+    loginButton: 'Login',
+    backToUserSelection: 'Back to user selection',
+    recentlyLoggedIn: 'Recently logged in',
+    selectUser: 'Please select user',
+    addUser: 'Add User',
+    optimizeTitle: "Optimize your clinic's performance with Aesthetics360",
+    optimizeSubtitle: 'Aesthetics360 offers cutting-edge software tailored for plastic surgery clinics, streamlining patient management, appointment scheduling, and medical documentation—all in one place.',
+    termsOfService: 'Terms of Service',
+    privacyPolicy: 'Privacy Policy',
+    cookies: 'Cookies',
+    copyright: '© {year} Aesthetics360, LLC. All rights reserved.',
+    createAccount: 'Create an account',
+    signUpButton: 'Sign Up',
+    noAccount: "Don't have an account? Sign Up",
+    alreadyHaveAccount: "Already have an account? Sign In",
+    signUpSubtitle: 'Please fill in the details to register.',
+    authErrorTitle: 'Authentication Error',
+    invalidApiKeyError: 'Authentication error: Please check your API_KEY environment variable. Ensure it is set to your Supabase **publishable** key, not the secret key.',
+
+
+    // Onboarding
+    onboardingWelcomeTitle: 'Welcome, {name}!',
+    onboardingWelcomeText: 'We\'re excited to have you. Let\'s quickly walk through the key features to get you started.',
+    onboardingFeaturesTitle: 'Powerful, Simple Workflow',
+    onboardingFeaturesText: 'Go from consultation notes to a beautiful, patient-ready plan in minutes. Use our AI, start from a template, or build from scratch.',
+    onboardingAdminTitle: 'Make It Your Own',
+    onboardingAdminText: 'Head to the Admin & Settings panel to customize everything—from your logo and services to plan templates.',
+    onboardingFinish: 'Let\'s Go!',
 
 
     // Template Selector
@@ -65,6 +110,51 @@ export const translations = {
     startTutorial: 'Iniciar Tutorial',
     langEnglish: 'Inglés',
     langSpanish: 'Español',
+    logout: 'Cerrar Sesión',
+    close: 'Cerrar',
+
+    // Login
+    loginTitle: 'Bienvenido a Aesthetics 360',
+    loginSubtitle: 'La plataforma todo en uno para crear, gestionar y compartir planes de tratamiento estético.',
+    yourName: 'Tu Nombre',
+    practiceName: 'Nombre de la Clínica',
+    getStarted: 'Comenzar',
+    signIn: 'Iniciar sesión',
+    signInSubtitle: 'Por favor, introduce tus credenciales para iniciar sesión',
+    emailLabel: 'Correo electrónico',
+    emailPlaceholder: 'tu.correo@empresa.com',
+    passwordLabel: 'Contraseña',
+    passwordPlaceholder: 'Introduce tu contraseña',
+    rememberMe: 'Recuérdame',
+    forgotPassword: '¿Olvidaste tu contraseña?',
+    loginButton: 'Iniciar Sesión',
+    backToUserSelection: 'Volver a la selección de usuario',
+    recentlyLoggedIn: 'Sesiones recientes',
+    selectUser: 'Por favor, selecciona un usuario',
+    addUser: 'Añadir Usuario',
+    optimizeTitle: 'Optimice el rendimiento de su clínica con Aesthetics360',
+    optimizeSubtitle: 'Aesthetics360 ofrece un software de vanguardia diseñado para clínicas de cirugía plástica, que agiliza la gestión de pacientes, la programación de citas y la documentación médica, todo en un solo lugar.',
+    termsOfService: 'Términos de Servicio',
+    privacyPolicy: 'Política de Privacidad',
+    cookies: 'Cookies',
+    copyright: '© {year} Aesthetics360, LLC. Todos los derechos reservados.',
+    createAccount: 'Crear una cuenta',
+    signUpButton: 'Registrarse',
+    noAccount: '¿No tienes una cuenta? Regístrate',
+    alreadyHaveAccount: '¿Ya tienes una cuenta? Inicia Sesión',
+    signUpSubtitle: 'Por favor, rellene los detalles para registrarse.',
+    authErrorTitle: 'Error de Autenticación',
+    invalidApiKeyError: 'Error de autenticación: Por favor, revise la variable de entorno API_KEY. Asegúrese de que esté configurada con su clave **publicable** de Supabase, no la clave secreta.',
+
+
+    // Onboarding
+    onboardingWelcomeTitle: '¡Bienvenida, {name}!',
+    onboardingWelcomeText: 'Estamos emocionados de tenerte. Repasemos rápidamente las características clave para que puedas comenzar.',
+    onboardingFeaturesTitle: 'Flujo de Trabajo Potente y Sencillo',
+    onboardingFeaturesText: 'Pasa de las notas de consulta a un plan hermoso y listo para el paciente en minutos. Usa nuestra IA, comienza desde una plantilla o créalo desde cero.',
+    onboardingAdminTitle: 'Hazlo Tuyo',
+    onboardingAdminText: 'Dirígete al panel de Administración y Ajustes para personalizar todo, desde tu logotipo y servicios hasta las plantillas de planes.',
+    onboardingFinish: '¡Vamos!',
 
     // Template Selector
     aiSuggestionTitle: 'Obtenga una sugerencia de IA',
@@ -110,6 +200,12 @@ export const translations = {
 export type Language = keyof typeof translations;
 export type TranslationKey = keyof typeof translations.en;
 
-export const getTranslator = (lang: Language) => (key: TranslationKey): string => {
-  return translations[lang]?.[key] || translations.en[key];
+export const getTranslator = (lang: Language) => (key: TranslationKey, substitutions?: Record<string, string>): string => {
+  let translation = translations[lang]?.[key] || translations.en[key];
+  if (substitutions) {
+    Object.keys(substitutions).forEach(subKey => {
+      translation = translation.replace(`{${subKey}}`, substitutions[subKey]);
+    });
+  }
+  return translation;
 };

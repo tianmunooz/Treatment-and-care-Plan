@@ -1,4 +1,3 @@
-
 # Aesthetic Treatment & Care Plan Builder
 
 An advanced, AI-powered web application for creating, customizing, and sharing personalized aesthetic treatment plans. This tool is designed for medical aesthetic professionals to streamline their consultation workflow, enhance patient communication, and manage their services efficiently.
@@ -10,16 +9,17 @@ An advanced, AI-powered web application for creating, customizing, and sharing p
 -   **AI-Powered Plan Generation**: Utilizes the Google Gemini API to instantly transform unstructured consultation notes into a complete, multi-phase treatment plan.
 -   **Dynamic Plan Builder**: A rich, interactive interface to visually construct plans. Users can add phases and treatments, with full drag-and-drop support for reordering.
 -   **Template-Driven Workflow**: Start from expertly crafted, pre-built templates or create custom templates to standardize care and accelerate plan creation.
+-   **Cloud Authentication & Data Persistence**: Secure user management via Supabase Auth and data storage in a Supabase PostgreSQL database, ensuring user data is safe and accessible.
 -   **Comprehensive Customization**: A powerful Admin Panel allows for complete personalization. Define every product and service, set default pricing, manage dropdown options, and edit plan templates.
 -   **Bilingual Support (EN/ES)**: Fully functional in English and Spanish. The Admin Panel includes tools for managing translations for all custom content.
 -   **Professional PDF Export**: Generate polished, patient-ready PDF documents of the final care plan, complete with your practice's branding.
 -   **Interactive Tutorial System**: A built-in, step-by-step guide to help new users quickly learn and master the application's features.
--   **Zero-Backend Architecture**: Runs entirely in the browser. All definitions and plans are persisted securely in the browser's `localStorage`, requiring no database or server-side setup.
 
 ## Tech Stack
 
 -   **Framework**: React (using TypeScript)
 -   **AI Integration**: Google Gemini API (`@google/genai`)
+-   **Backend as a Service (BaaS)**: Supabase (Auth, Database)
 -   **Styling**: Tailwind CSS
 -   **PDF Generation**: jsPDF & html2canvas
 -   **Icons**: Lucide React
@@ -40,7 +40,60 @@ This application is designed to run directly in the browser without a traditiona
 ### Prerequisites
 
 1.  **A Modern Web Browser** (e.g., Chrome, Firefox, Safari, Edge).
-2.  **Google Gemini API Key**: The application requires a valid API key to be available as an environment variable (`process.env.API_KEY`) in the deployment environment.
+2.  **Supabase Project**: You need a free Supabase project. You can create one at [supabase.com](https://supabase.com/).
+3.  **API Key**: The application requires a single API key to be configured as the `API_KEY` environment variable. 
+    *   For **Supabase authentication** and database features, this key must be your Supabase **publishable** key.
+    *   For **AI features**, this key must be your Google Gemini API key.
+
+### Supabase Setup
+Before running the application, you need to set up a table in your Supabase database to store user-specific settings.
+
+1.  Navigate to your Supabase project dashboard.
+2.  Go to the **SQL Editor** from the left sidebar.
+3.  Click **+ New query**.
+4.  Paste the entire SQL script below and click **RUN**. This will create the `definitions` table and set up the necessary security policies.
+
+```sql
+-- 1. Create the 'definitions' table
+-- This table will store custom settings for each user.
+CREATE TABLE public.definitions (
+  user_id UUID NOT NULL PRIMARY KEY,
+  data JSONB,
+  CONSTRAINT definitions_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+);
+
+-- 2. Enable Row Level Security (RLS) on the new table
+-- This is a crucial security step to ensure users can only access their own data.
+ALTER TABLE public.definitions ENABLE ROW LEVEL SECURITY;
+
+-- 3. Create security policies for the table
+-- These rules define who can view, create, update, or delete data.
+
+-- Allow users to view their own definitions
+CREATE POLICY "Allow individual read access"
+ON public.definitions
+FOR SELECT
+USING (auth.uid() = user_id);
+
+-- Allow users to create their own definitions
+CREATE POLICY "Allow individual insert access"
+ON public.definitions
+FOR INSERT
+WITH CHECK (auth.uid() = user_id);
+
+-- Allow users to update their own definitions
+CREATE POLICY "Allow individual update access"
+ON public.definitions
+FOR UPDATE
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+
+-- Allow users to delete their own definitions
+CREATE POLICY "Allow individual delete access"
+ON public.definitions
+FOR DELETE
+USING (auth.uid() = user_id);
+```
 
 ### Running Locally
 
@@ -60,7 +113,7 @@ The heart of this application's flexibility is the **Admin Panel**.
     -   **Templates**: Create, edit, or delete plan templates.
     -   **Products & Services**: Define every treatment or retail product you offer. Group them into categories and configure their default properties like price, goal, and required fields.
     -   **Options**: Customize the values that appear in dropdown menus throughout the app, such as "Target Areas," "Frequencies," or "Technologies."
--   **Data Persistence**: All changes made in the Admin Panel are automatically saved to the browser's `localStorage`.
+-   **Data Persistence**: All changes made in the Admin Panel are automatically saved to your Supabase database, linked to your user account.
 
 ## Project Structure
 
@@ -76,9 +129,10 @@ The heart of this application's flexibility is the **Admin Panel**.
 ├── data/                # Default application data
 │   └── definitions.ts   # Default products, services, templates
 ├── services/            # Business logic and external API interactions
+│   ├── definitionsService.ts
 │   ├── geminiService.ts
 │   ├── pdfService.ts
-│   └── definitionsService.ts
+│   └── supabaseService.ts
 ├── i18n.ts              # Translation strings and logic
 ├── types.ts             # Core TypeScript type definitions
 ├── index.html           # Main HTML entry point with import maps

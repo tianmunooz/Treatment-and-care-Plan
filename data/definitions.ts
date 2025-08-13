@@ -1,6 +1,3 @@
-
-
-
 import { Definitions, IconName, PlanTemplate, PracticeInfo } from '../types';
 import { SyringeIcon, PackageIcon, ClockIcon, FacialIcon, VialIcon, SunIcon } from '../components/icons';
 import { v4 as uuidv4 } from 'uuid';
@@ -195,232 +192,128 @@ export const DEFAULT_DEFINITIONS: Definitions = {
       displayName: { en: 'Consultations', es: 'Consultas' },
       itemLabel: { en: 'Consultation Type', es: 'Tipo de Consulta' },
       items: [
-        { key: 'comprehensive-skin-analysis', name: { en: 'Comprehensive Skin Analysis', es: 'Análisis Integral de la Piel' }, fields: ['technology'], defaults: { icon: 'Facial', goal: { en: 'Establish baseline and create treatment plan.', es: 'Establecer línea de base y crear plan de tratamiento.' }, price: 0, frequency: 'once' } },
-        { key: 'follow-up-consultation', name: { en: 'Follow-up Consultation', es: 'Consulta de Seguimiento' }, fields: [], defaults: { icon: 'Clock', goal: { en: 'Assess progress and adjust plan.', es: 'Evaluar el progreso y ajustar el plan.' }, price: 100, frequency: 'as-needed' } }
+        { key: 'comprehensive-skin-analysis', name: { en: 'Comprehensive Skin Analysis', es: 'Análisis Integral de la Piel' }, fields: ['technology'], defaults: { icon: 'Facial' as IconName, goal: { en: 'Establish baseline and create treatment plan.', es: 'Establecer línea de base y crear plan de tratamiento.' }, price: 0, frequency: 'once' } },
+        { key: 'follow-up-consultation', name: { en: 'Follow-up Consultation', es: 'Consulta de Seguimiento' }, fields: [], defaults: { icon: 'Clock' as IconName, goal: { en: 'Assess progress and adjust plan.', es: 'Evaluar el progreso y ajustar el plan.' }, price: 100, frequency: 'as-needed' } }
       ]
     },
     injectables: {
       displayName: { en: 'Injectables', es: 'Inyectables' },
       itemLabel: { en: 'Product', es: 'Producto' },
       items: [
-        { key: 'botox', name: { en: 'Botox', es: 'Bótox' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe', goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 13, units: '50', price: 650, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders (e.g., ALS, Myasthenia Gravis).', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares (p. ej., ELA, Miastenia Gravis).' }, sku: 'INJ-BTX-50U', cost: 250, imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/vials.png?updatedAt=1754507025888', brand: 'Allergan' } },
-        { key: 'dysport', name: { en: 'Dysport', es: 'Dysport' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe', goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 12, units: '50', price: 600, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders (e.g., ALS, Myasthenia Gravis).', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares (p. ej., ELA, Miastenia Gravis).' }, brand: 'Galderma' } },
-        { key: 'jeuveau', name: { en: 'Jeuveau', es: 'Jeuveau' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe', goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 12, units: '50', price: 600, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders.', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares.' }, brand: 'Evolus' } },
-        { key: 'letybo', name: { en: 'Letybo', es: 'Letybo' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe', goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 12, units: '50', price: 600, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders.', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares.' }, brand: 'Evolus' } },
-        { key: 'juvederm-ultra', name: { en: 'Juvederm Ultra', es: 'Juvederm Ultra' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe', goal: { en: 'Add volume to lips or folds.', es: 'Añadir volumen a labios o pliegues.' }, pricePerUnit: 750, volume: '1', price: 750, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, brand: 'Allergan' } },
-        { key: 'juvederm-ultra-xc', name: { en: 'Juvederm Ultra XC', es: 'Juvederm Ultra XC' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe', goal: { en: 'Add volume to lips or folds, contains lidocaine.', es: 'Añadir volumen a labios o pliegues, contiene lidocaína.' }, pricePerUnit: 775, volume: '1', price: 775, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, brand: 'Allergan' } },
-        { key: 'juvederm-voluma', name: { en: 'Juvederm Voluma', es: 'Juvederm Voluma' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe', goal: { en: 'Add volume to cheeks.', es: 'Añadir volumen a las mejillas.' }, pricePerUnit: 850, volume: '1', price: 850, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, sku: 'INJ-JV-VOL-1ML', cost: 380, imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/syringes.png?updatedAt=1754507025894', brand: 'Allergan' } },
-        { key: 'restylane', name: { en: 'Restylane', es: 'Restylane' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe', goal: { en: 'Correct wrinkles and folds.', es: 'Corregir arrugas y pliegues.' }, pricePerUnit: 700, volume: '1', price: 700, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, brand: 'Galderma' } },
-        { key: 'kybella', name: { en: 'Kybella', es: 'Kybella' }, fields: ['targetArea', 'vials'], defaults: { icon: 'Vial', goal: { en: 'Reduce submental fat.', es: 'Reducir la grasa submentoniana.' }, pricePerUnit: 600, vials: '2', price: 1200, frequency: 'series-of-treatments', contraindications: { en: 'Infection in the treatment area, trouble swallowing, bleeding problems. Use caution if you have had prior cosmetic treatments on the neck/chin.', es: 'Infección en el área de tratamiento, dificultad para tragar, problemas de sangrado. Tenga precaución si ha tenido tratamientos cosméticos previos en el cuello/barbilla.' }, brand: 'Allergan' } },
-        { key: 'sculptra', name: { en: 'Sculptra', es: 'Sculptra' }, fields: ['targetArea', 'vials'], defaults: { icon: 'Syringe', goal: { en: 'Stimulate collagen production for volume.', es: 'Estimular la producción de colágeno para dar volumen.' }, pricePerUnit: 900, vials: '1', price: 900, frequency: 'series-of-treatments', contraindications: { en: 'Active skin infection or inflammation in the treatment area, history of keloid formation or hypertrophic scarring.', es: 'Infección o inflamación activa de la piel en el área de tratamiento, historial de formación de queloides o cicatrices hipertróficas.' }, brand: 'Galderma' } },
-      ]
-    },
-    'laser-light-therapy': {
-      displayName: { en: 'Laser & Light Therapy', es: 'Terapia con Láser y Luz' },
-      itemLabel: { en: 'Procedure', es: 'Procedimiento' },
-      items: [
-        { key: 'bbl', name: { en: 'BBL (BroadBand Light)', es: 'BBL (Luz de Banda Ancha)' }, fields: ['targetArea', 'intensity'], defaults: { icon: 'Facial', goal: { en: 'Correct sun damage and pigmentation.', es: 'Corregir daño solar y pigmentación.' }, price: 500, frequency: 'series-of-3-5', contraindications: { en: 'Active infections, viral/fungal/bacterial diseases, inflammatory skin conditions, skin cancer. Use of photosensitizing medication (e.g., Accutane) in the last 6 months.', es: 'Infecciones activas, enfermedades virales/fúngicas/bacterianas, afecciones inflamatorias de la piel, cáncer de piel. Uso de medicamentos fotosensibilizantes (p. ej., Accutane) en los últimos 6 meses.' } } },
-        { key: 'moxi', name: { en: 'Moxi', es: 'Moxi' }, fields: ['targetArea', 'intensity'], defaults: { icon: 'Facial', goal: { en: 'Improve skin tone and texture.', es: 'Mejorar el tono y la textura de la piel.' }, price: 600, frequency: 'series-of-3-4', contraindications: { en: 'Active infections, viral/fungal/bacterial diseases, inflammatory skin conditions, skin cancer. Use of photosensitizing medication (e.g., Accutane) in the last 6 months.', es: 'Infecciones activas, enfermedades virales/fúngicas/bacterianas, afecciones inflamatorias de la piel, cáncer de piel. Uso de medicamentos fotosensibilizantes (p. ej., Accutane) en los últimos 6 meses.' } } },
+        { key: 'botox', name: { en: 'Botox', es: 'Bótox' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 13, units: '50', price: 650, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders (e.g., ALS, Myasthenia Gravis).', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares (p. ej., ELA, Miastenia Gravis).' }, sku: 'INJ-BTX-50U', cost: 250, imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/vials.png?updatedAt=1754507025888', brand: 'Allergan' } },
+        { key: 'dysport', name: { en: 'Dysport', es: 'Dysport' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 12, units: '50', price: 600, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders (e.g., ALS, Myasthenia Gravis).', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares (p. ej., ELA, Miastenia Gravis).' }, brand: 'Galderma' } },
+        { key: 'jeuveau', name: { en: 'Jeuveau', es: 'Jeuveau' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 12, units: '50', price: 600, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders.', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares.' }, brand: 'Evolus' } },
+        { key: 'letybo', name: { en: 'Letybo', es: 'Letybo' }, fields: ['targetArea', 'units'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Reduce dynamic wrinkles.', es: 'Reducir arrugas dinámicas.' }, pricePerUnit: 12, units: '50', price: 600, frequency: 'every-3-4-months', contraindications: { en: 'Known allergy to botulinum toxin products, infection at injection site, pregnancy/breastfeeding, neuromuscular disorders.', es: 'Alergia conocida a productos de toxina botulínica, infección en el sitio de inyección, embarazo/lactancia, trastornos neuromusculares.' }, brand: 'Evolus' } },
+        { key: 'juvederm-ultra', name: { en: 'Juvederm Ultra', es: 'Juvederm Ultra' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Add volume to lips or folds.', es: 'Añadir volumen a labios o pliegues.' }, pricePerUnit: 750, volume: '1', price: 750, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, brand: 'Allergan' } },
+        { key: 'juvederm-ultra-xc', name: { en: 'Juvederm Ultra XC', es: 'Juvederm Ultra XC' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Add volume to lips or folds, contains lidocaine.', es: 'Añadir volumen a labios o pliegues, contiene lidocaína.' }, pricePerUnit: 775, volume: '1', price: 775, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, brand: 'Allergan' } },
+        { key: 'juvederm-voluma', name: { en: 'Juvederm Voluma', es: 'Juvederm Voluma' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Add volume to cheeks.', es: 'Añadir volumen a las mejillas.' }, pricePerUnit: 850, volume: '1', price: 850, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, sku: 'INJ-JV-VOL-1ML', cost: 380, imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/syringes.png?updatedAt=1754507025894', brand: 'Allergan' } },
+        { key: 'restylane', name: { en: 'Restylane', es: 'Restylane' }, fields: ['targetArea', 'volume'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Correct wrinkles and folds.', es: 'Corregir arrugas y pliegues.' }, pricePerUnit: 700, volume: '1', price: 700, frequency: 'once', contraindications: { en: 'History of severe allergies (anaphylaxis), lidocaine allergy, bleeding disorders, active skin inflammation or infection at the site.', es: 'Historial de alergias graves (anafilaxia), alergia a la lidocaína, trastornos hemorrágicos, inflamación o infección activa de la piel en el sitio.' }, brand: 'Galderma' } },
+        { key: 'kybella', name: { en: 'Kybella', es: 'Kybella' }, fields: ['targetArea', 'vials'], defaults: { icon: 'Vial' as IconName, goal: { en: 'Reduce submental fat.', es: 'Reducir la grasa submentoniana.' }, pricePerUnit: 600, vials: '2', price: 1200, frequency: 'series-of-treatments', contraindications: { en: 'Infection in the treatment area, trouble swallowing, bleeding problems. Use caution if you have had prior cosmetic treatments on the neck/chin.', es: 'Infección en el área de tratamiento, dificultad para tragar, problemas de sangrado. Tenga precaución si ha tenido tratamientos cosméticos previos en el cuello/barbilla.' }, brand: 'Allergan' } },
+        { key: 'sculptra', name: { en: 'Sculptra', es: 'Sculptra' }, fields: ['targetArea', 'vials'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Stimulate collagen production for volume.', es: 'Estimular la producción de colágeno para dar volumen.' }, pricePerUnit: 900, vials: '1', price: 900, frequency: 'series-of-treatments', contraindications: { en: 'History of keloid formation or hypertrophic scarring. Autoimmune diseases.', es: 'Historial de formación de queloides o cicatrices hipertróficas. Enfermedades autoinmunes.' }, brand: 'Galderma' } },
       ]
     },
     'facials-peels': {
         displayName: { en: 'Facials & Peels', es: 'Faciales y Peelings' },
-        itemLabel: { en: 'Procedure', es: 'Procedimiento' },
+        itemLabel: { en: 'Service', es: 'Servicio' },
         items: [
-          { key: 'hydrafacial-md', name: { en: 'HydraFacial MD', es: 'HydraFacial MD' }, fields: ['intensity'], defaults: { icon: 'Facial', goal: { en: 'Hydrate, cleanse, and exfoliate.', es: 'Hidratar, limpiar y exfoliar.' }, price: 250, frequency: 'monthly', sku: 'FCL-HYD-MD', cost: 80, imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/facial-cream.png?updatedAt=1754507025983', brand: 'HydraFacial' } },
-          { key: 'microneedling', name: { en: 'Microneedling', es: 'Microneedling' }, fields: ['targetArea'], defaults: { icon: 'Syringe', goal: { en: 'Stimulate collagen for texture improvement.', es: 'Estimular el colágeno para mejorar la textura.' }, price: 400, frequency: 'series-of-3-6', contraindications: { en: 'Active acne, skin infection, keloid scarring tendency, Accutane use in last 6 months, uncontrolled diabetes.', es: 'Acné activo, infección de la piel, tendencia a la cicatrización queloide, uso de Accutane en los últimos 6 meses, diabetes no controlada.' } } },
+          { key: 'hydrafacial-md', name: { en: 'HydraFacial MD', es: 'HydraFacial MD' }, fields: ['intensity'], defaults: { icon: 'Facial' as IconName, goal: { en: 'Deeply cleanse, extract, and hydrate.', es: 'Limpiar, extraer e hidratar profundamente.' }, price: 250, frequency: 'monthly' } },
+          { key: 'microneedling', name: { en: 'Microneedling', es: 'Microneedling' }, fields: ['targetArea'], defaults: { icon: 'Syringe' as IconName, goal: { en: 'Stimulate collagen for texture improvement.', es: 'Estimular colágeno para mejorar textura.' }, price: 450, frequency: 'series-of-3-5' } },
+        ]
+    },
+    'laser-light-therapy': {
+        displayName: { en: 'Laser & Light Therapy', es: 'Terapia Láser y de Luz' },
+        itemLabel: { en: 'Treatment', es: 'Tratamiento' },
+        items: [
+            { key: 'bbl', name: { en: 'BBL (BroadBand Light)', es: 'BBL (Luz de Banda Ancha)' }, fields: ['targetArea'], defaults: { icon: 'Sun' as IconName, goal: { en: 'Correct sun damage and pigmentation.', es: 'Corregir daño solar y pigmentación.' }, price: 500, frequency: 'series-of-3-5' } },
+            { key: 'moxi', name: { en: 'Moxi Laser', es: 'Láser Moxi' }, fields: ['targetArea', 'intensity'], defaults: { icon: 'Sun' as IconName, goal: { en: 'Improve skin tone and texture.', es: 'Mejorar tono y textura de la piel.' }, price: 600, frequency: 'series-of-3-4' } }
         ]
     },
     'skincare-medications': {
-      displayName: { en: 'Skincare & Medications', es: 'Cuidado de la Piel y Medicamentos' },
-      itemLabel: { en: 'Product', es: 'Producto' },
-      items: [
-        { 
-          key: 'medical-grade-vitamin-c-serum', 
-          name: { en: 'Medical-Grade Vitamin C Serum', es: 'Sérum de Vitamina C de Grado Médico' }, 
-          fields: ['dosage', 'application'], 
-          defaults: { 
-            icon: 'Package', 
-            goal: { en: 'Brightens skin and provides antioxidant protection.', es: 'Ilumina la piel y proporciona protección antioxidante.' }, 
-            price: 120, 
-            frequency: 'daily',
-            application: 'am',
-            dosage: '3-4 drops',
-            sku: 'SKN-VITC-30ML',
-            cost: 45,
-            imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/serum.png?updatedAt=1754507025816',
-            brand: 'SkinCeuticals'
-          } 
-        },
-        {
-          key: 'tretinoin-cream-0.025',
-          name: { en: 'Tretinoin Cream 0.025%', es: 'Crema de Tretinoína 0.025%' },
-          fields: ['dosage', 'application'],
-          defaults: {
-            icon: 'Package',
-            goal: { en: 'Increase cell turnover, treat acne, and reduce fine lines.', es: 'Aumentar la renovación celular, tratar el acné y reducir las líneas finas.' },
-            price: 85,
-            frequency: 'daily',
-            application: 'pm',
-            dosage: 'pea-sized amount',
-            contraindications: { en: 'Pregnancy/breastfeeding, eczema, rosacea, sunburn. Use with caution with other photosensitizing agents or exfoliants.', es: 'Embarazo/lactancia, eczema, rosácea, quemaduras solares. Usar con precaución con otros agentes fotosensibilizantes o exfoliantes.' }
-          }
-        },
-        {
-          key: 'hyaluronic-acid-serum',
-          name: { en: 'Hyaluronic Acid Serum', es: 'Sérum de Ácido Hialurónico' },
-          fields: ['dosage', 'application'],
-          defaults: {
-            icon: 'Package',
-            goal: { en: 'Deeply hydrate and plump the skin.', es: 'Hidratar profundamente y dar volumen a la piel.' },
-            price: 60,
-            frequency: 'daily',
-            application: 'both',
-            dosage: '2-3 drops'
-          }
-        },
-        {
-          key: 'broad-spectrum-spf-50',
-          name: { en: 'Broad-Spectrum SPF 50+', es: 'Protector Solar de Amplio Espectro SPF 50+' },
-          fields: ['dosage', 'application'],
-          defaults: {
-            icon: 'Sun',
-            goal: { en: 'Protect skin from UVA/UVB damage.', es: 'Proteger la piel del daño UVA/UVB.' },
-            price: 45,
-            frequency: 'daily',
-            application: 'am',
-            dosage: 'liberal application',
-            sku: 'SKN-SPF50-50ML',
-            cost: 18,
-            imageUrl: 'https://ik.imagekit.io/0fheaxmfc/Product%20Shots/sunscreen.png?updatedAt=1754507025983',
-            brand: 'EltaMD'
-          }
-        },
-        {
-            key: 'latisse',
-            name: { en: 'Latisse', es: 'Latisse' },
-            fields: ['dosage', 'application'],
-            defaults: {
-                icon: 'Package',
-                goal: { en: 'Promote eyelash growth.', es: 'Promover el crecimiento de las pestañas.' },
-                price: 180,
-                frequency: 'daily',
-                application: 'pm',
-                dosage: 'One drop per applicator per eyelid',
-                contraindications: { en: 'Do not apply to lower lid. May cause eyelid skin darkening or iris pigment changes.', es: 'No aplicar en el párpado inferior. Puede causar oscurecimiento de la piel del párpado o cambios en el pigmento del iris.' },
-                brand: 'Allergan'
-            }
-        },
-      ]
-    },
-    'neocutis-skincare': {
-        displayName: { en: 'Neocutis', es: 'Neocutis' },
+        displayName: { en: 'Skincare & Medications', es: 'Cuidado de la Piel y Medicamentos' },
         itemLabel: { en: 'Product', es: 'Producto' },
         items: [
-            { key: 'bio-cream-firm-50', name: { en: 'Bio Cream Firm 50ml', es: 'Bio Cream Firm 50ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Anti-aging cream for skin firmness.', es: 'Crema antiedad para la firmeza de la piel.' }, price: 160, frequency: 'daily', application: 'pm', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'bio-cream-firm-15', name: { en: 'Bio Cream Firm 15ml', es: 'Bio Cream Firm 15ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Anti-aging cream for skin firmness.', es: 'Crema antiedad para la firmeza de la piel.' }, price: 75, frequency: 'daily', application: 'pm', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'bio-cream-firm-riche-15', name: { en: 'Bio Cream Firm Riche 15ml', es: 'Bio Cream Firm Riche 15ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Rich anti-aging cream for dry skin.', es: 'Crema rica antiedad para piel seca.' }, price: 80, frequency: 'daily', application: 'pm', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'bio-cream-firm-riche-50', name: { en: 'Bio Cream Firm Riche 50ml', es: 'Bio Cream Firm Riche 50ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Rich anti-aging cream for dry skin.', es: 'Crema rica antiedad para piel seca.' }, price: 175, frequency: 'daily', application: 'pm', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'bio-gel-firm-15', name: { en: 'Bio Gel Firm 15ml', es: 'Bio Gel Firm 15ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Lightweight anti-aging gel.', es: 'Gel ligero antiedad.' }, price: 75, frequency: 'daily', application: 'am', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'bio-gel-firm-50', name: { en: 'Bio Gel Firm 50ml', es: 'Bio Gel Firm 50ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Lightweight anti-aging gel.', es: 'Gel ligero antiedad.' }, price: 170, frequency: 'daily', application: 'am', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'bio-serum-firm', name: { en: 'Bio Serum Firm', es: 'Bio Serum Firm' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Potent rejuvenating serum.', es: 'Sérum rejuvenecedor potente.' }, price: 275, frequency: 'daily', application: 'both', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'journee-firm-15', name: { en: 'Journee Firm 15ml', es: 'Journee Firm 15ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Sun', goal: { en: 'Day cream with SPF protection.', es: 'Crema de día con protección SPF.' }, price: 80, frequency: 'daily', application: 'am', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'journee-firm-50', name: { en: 'Journee Firm 50ml', es: 'Journee Firm 50ml' }, fields: ['dosage', 'application'], defaults: { icon: 'Sun', goal: { en: 'Day cream with SPF protection.', es: 'Crema de día con protección SPF.' }, price: 165, frequency: 'daily', application: 'am', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'neo-body', name: { en: 'Neo Body', es: 'Neo Body' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Restorative body cream.', es: 'Crema corporal restauradora.' }, price: 120, frequency: 'daily', application: 'both', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'neo-firm-50g', name: { en: 'Neo Firm 50g', es: 'Neo Firm 50g' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Neck & decollete firming cream.', es: 'Crema reafirmante para cuello y escote.' }, price: 135, frequency: 'daily', application: 'both', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'neocleanse-gentle-cleanser', name: { en: 'NeoCleanse Gentle Cleanser', es: 'NeoCleanse Limpiador Suave' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Glycerin-rich gentle facial cleanser.', es: 'Limpiador facial suave rico en glicerina.' }, price: 38, frequency: 'daily', application: 'both', dosage: 'Apply as directed', brand: 'Neocutis' } },
-            { key: 'nouvelle-plus', name: { en: 'Nouvelle +', es: 'Nouvelle +' }, fields: ['dosage', 'application'], defaults: { icon: 'Package', goal: { en: 'Retinol corrective cream.', es: 'Crema correctora con retinol.' }, price: 150, frequency: 'daily', application: 'pm', dosage: 'Apply as directed', brand: 'Neocutis' } },
+            { key: 'medical-grade-vitamin-c-serum', name: { en: 'Medical-Grade Vitamin C Serum', es: 'Sérum de Vitamina C de Grado Médico' }, fields: ['application', 'dosage'], defaults: { icon: 'Package' as IconName, goal: { en: 'Antioxidant protection and skin brightening.', es: 'Protección antioxidante e iluminación de la piel.' }, price: 120, frequency: 'daily' } }
         ]
     },
     'vein-treatments': {
-      displayName: { en: 'Vein Treatments', es: 'Tratamientos de Venas' },
-      itemLabel: { en: 'Procedure', es: 'Procedimiento' },
-      items: [
-          { key: 'sclerotherapy', name: { en: 'Sclerotherapy', es: 'Escleroterapia' }, fields: ['targetArea', 'vials'], defaults: { icon: 'Vial', goal: { en: 'Treat spider and small varicose veins.', es: 'Tratar arañas vasculares y pequeñas varices.' }, pricePerUnit: 400, vials: '1', price: 400, frequency: 'series-of-treatments', contraindications: { en: 'Pregnancy, history of deep vein thrombosis (DVT) or blood clots, allergy to sclerosant solution, infection at injection site.', es: 'Embarazo, historial de trombosis venosa profunda (TVP) o coágulos de sangre, alergia a la solución esclerosante, infección en el sitio de inyección.' } } }
-      ]
-    },
-    'utility-agents': {
-        displayName: { en: 'Utility Agents', es: 'Agentes Utilitarios' },
-        itemLabel: { en: 'Agent', es: 'Agente' },
+        displayName: { en: 'Vein Treatments', es: 'Tratamientos de Venas' },
+        itemLabel: { en: 'Treatment', es: 'Tratamiento' },
         items: [
-            { key: 'hylenex', name: { en: 'Hylenex', es: 'Hylenex' }, fields: ['vials'], defaults: { icon: 'Vial', goal: { en: 'Dissolve hyaluronic acid fillers.', es: 'Disolver rellenos de ácido hialurónico.' }, pricePerUnit: 200, vials: '1', price: 200, frequency: 'as-needed', contraindications: { en: 'Allergy to hyaluronidase products. Infection at the injection site.', es: 'Alergia a productos de hialuronidasa. Infección en el sitio de inyección.' }, brand: 'Halozyme' } }
+            { key: 'sclerotherapy', name: { en: 'Sclerotherapy', es: 'Escleroterapia' }, fields: ['targetArea', 'vials'], defaults: { icon: 'Vial' as IconName, goal: { en: 'Reduce spider veins.', es: 'Reducir arañas vasculares.' }, pricePerUnit: 400, price: 400, frequency: 'series-of-treatments' } }
         ]
-    },
+    }
   },
   options: {
     technologies: [
-      { key: 'visia', name: { en: 'VISIA', es: 'VISIA' } },
-      { key: 'canfield', name: { en: 'Canfield IntelliCAM', es: 'Canfield IntelliCAM' } },
-      { key: 'other', name: { en: 'Other', es: 'Otro' } }
+      { key: 'visia', name: { en: 'Visia Skin Analysis', es: 'Análisis de Piel Visia' } },
+      { key: 'vectra', name: { en: 'Vectra 3D Imaging', es: 'Imágenes 3D Vectra' } }
     ],
     timelines: [
+      { key: 'tbd', name: { en: 'To Be Determined', es: 'A determinar' } },
       { key: 'week-1', name: { en: 'Week 1', es: 'Semana 1' } },
       { key: 'week-2', name: { en: 'Week 2', es: 'Semana 2' } },
       { key: 'month-3', name: { en: 'Month 3', es: 'Mes 3' } },
-      { key: 'ongoing', name: { en: 'Ongoing', es: 'Continuo' } },
-      { key: 'tbd', name: { en: 'TBD', es: 'Por determinar' } }
+      { key: 'ongoing', name: { en: 'Ongoing', es: 'Continuo' } }
     ],
     frequencies: [
-      { key: 'once', name: { en: 'Once', es: 'Una vez' } },
+      { key: 'once', name: { en: 'One Time', es: 'Una Vez' } },
       { key: 'daily', name: { en: 'Daily', es: 'Diario' } },
       { key: 'monthly', name: { en: 'Monthly', es: 'Mensual' } },
-      { key: 'every-3-4-months', name: { en: 'Every 3-4 months', es: 'Cada 3-4 meses' } },
-      { key: 'as-needed', name: { en: 'As needed', es: 'Según sea necesario' } },
-      { key: 'series-of-3', name: { en: 'Series of 3', es: 'Serie de 3' } },
+      { key: 'every-3-4-months', name: { en: 'Every 3-4 Months', es: 'Cada 3-4 Meses' } },
+      { key: 'series-of-treatments', name: { en: 'Series of Treatments', es: 'Serie de Tratamientos' } },
       { key: 'series-of-3-4', name: { en: 'Series of 3-4', es: 'Serie de 3-4' } },
       { key: 'series-of-3-5', name: { en: 'Series of 3-5', es: 'Serie de 3-5' } },
-      { key: 'series-of-3-6', name: { en: 'Series of 3-6', es: 'Serie de 3-6' } },
-      { key: 'series-of-treatments', name: { en: 'Series of treatments', es: 'Serie de tratamientos' } },
+      { key: 'as-needed', name: { en: 'As Needed', es: 'Según sea necesario' } }
     ],
     targetAreas: [
       { key: 'forehead', name: { en: 'Forehead', es: 'Frente' } },
       { key: 'crows-feet', name: { en: 'Crow\'s Feet', es: 'Patas de Gallo' } },
+      { key: 'lips', name: { en: 'Lips', es: 'Labios' } },
       { key: 'cheeks', name: { en: 'Cheeks', es: 'Mejillas' } },
-      { key: 'lips-volume', name: { en: 'Lips (Volume)', es: 'Labios (Volumen)' } },
+      { key: 'submental', name: { en: 'Submental (Chin)', es: 'Submentoniana (Barbilla)' } },
       { key: 'full-face', name: { en: 'Full Face', es: 'Rostro Completo' } },
-      { key: 'legs', name: { en: 'Legs', es: 'Piernas' } }
+      { key: 'neck', name: { en: 'Neck', es: 'Cuello' } },
+      { key: 'legs', name: { en: 'Legs', es: 'Piernas' } },
     ],
     intensities: [
-        { key: 'light', name: { en: 'Light', es: 'Ligero' } },
-        { key: 'medium', name: { en: 'Medium', es: 'Medio' } },
-        { key: 'strong', name: { en: 'Strong', es: 'Fuerte' } },
+      { key: 'light', name: { en: 'Light', es: 'Ligero' } },
+      { key: 'medium', name: { en: 'Medium', es: 'Medio' } },
+      { key: 'strong', name: { en: 'Strong', es: 'Fuerte' } }
     ],
     applications: [
-        { key: 'am', name: { en: 'AM', es: 'AM' } },
-        { key: 'pm', name: { en: 'PM', es: 'PM' } },
-        { key: 'both', name: { en: 'Both', es: 'Ambos' } },
+      { key: 'am', name: { en: 'AM', es: 'AM' } },
+      { key: 'pm', name: { en: 'PM', es: 'PM' } },
+      { key: 'both', name: { en: 'AM & PM', es: 'AM y PM' } }
     ],
     templateCategories: [
-      { key: 'anti-aging', name: { en: 'Anti-Aging', es: 'Antienvejecimiento' } },
-      { key: 'acne', name: { en: 'Acne', es: 'Acné' } },
-      { key: 'laser', name: { en: 'Laser', es: 'Láser' } },
-      { key: 'injectables', name: { en: 'Injectables', es: 'Inyectables' } },
-      { key: 'generic-aesthetics', name: { en: 'Generic Aesthetics', es: 'Estética General' } },
-      { key: 'veins', name: { en: 'Veins', es: 'Venas' } },
+        { key: 'anti-aging', name: { en: 'Anti-Aging', es: 'Antienvejecimiento' } },
+        { key: 'laser', name: { en: 'Laser & Rejuvenation', es: 'Láser y Rejuvenecimiento' } },
+        { key: 'injectables', name: { en: 'Injectables', es: 'Inyectables' } },
+        { key: 'acne', name: { en: 'Acne', es: 'Acné' } },
+        { key: 'veins', name: { en: 'Veins', es: 'Venas' } },
+        { key: 'generic-aesthetics', name: { en: 'General Aesthetics', es: 'Estética General' } }
     ],
     phaseTitles: [
-      { key: 'foundation', name: { en: 'Foundation', es: 'Base' } },
-      { key: 'correction', name: { en: 'Correction', es: 'Corrección' } },
-      { key: 'enhancement', name: { en: 'Enhancement', es: 'Mejora' } },
-      { key: 'maintenance', name: { en: 'Maintenance', es: 'Mantenimiento' } },
-      { key: 'finishing', name: { en: 'Finishing Touches', es: 'Toques Finales' } },
-    ],
-  },
-  treatmentIcons: {
-    Syringe: { label: 'Syringe (Injectables)', icon: SyringeIcon },
-    Package: { label: 'Skincare Package', icon: PackageIcon },
-    Clock: { label: 'Maintenance', icon: ClockIcon },
-    Facial: { label: 'Facial', icon: FacialIcon },
-    Vial: { label: 'Chemical Peel', icon: VialIcon },
-    Sun: { label: 'Sunscreen', icon: SunIcon },
+        { key: 'phase-1', name: { en: 'Phase 1: Foundation & Correction', es: 'Fase 1: Fundación y Corrección' } },
+        { key: 'phase-2', name: { en: 'Phase 2: Enhancement & Refinement', es: 'Fase 2: Mejora y Refinamiento' } },
+        { key: 'phase-3', name: { en: 'Phase 3: Maintenance & Prevention', es: 'Fase 3: Mantenimiento y Prevención' } }
+    ]
   },
   planTemplates: [
     antiAgingFoundationTemplate,
     rejuvenationProgramTemplate,
     injectablesFocusTemplate,
-    veinTreatmentTemplate,
     genericAestheticsTemplate,
+    veinTreatmentTemplate,
     acneTreatmentTemplate,
     blankTemplate,
   ],
+  treatmentIcons: {
+    Syringe: { icon: SyringeIcon },
+    Package: { icon: PackageIcon },
+    Clock: { icon: ClockIcon },
+    Facial: { icon: FacialIcon },
+    Vial: { icon: VialIcon },
+    Sun: { icon: SunIcon },
+  }
 };

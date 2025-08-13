@@ -1,5 +1,6 @@
 
 
+
 import React from 'react';
 import {
   Plus,
@@ -15,6 +16,7 @@ import {
   FileEdit,
   Save,
   Eye,
+  EyeOff,
   Share2,
   ClipboardList,
   Syringe,
@@ -30,6 +32,8 @@ import {
   AlertTriangle,
   ChevronUp,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Settings,
   Sun,
   Droplets,
@@ -54,7 +58,9 @@ import {
   Briefcase,
   ArrowUp,
   LayoutGrid,
-  List
+  List,
+  ArrowRight,
+  LogOut
 } from 'lucide-react';
 
 export const PlusIcon = Plus;
@@ -70,6 +76,7 @@ export const CalendarIcon = Calendar;
 export const EditIcon = FileEdit;
 export const SaveIcon = Save;
 export const EyeIcon = Eye;
+export const EyeOffIcon = EyeOff;
 export const ShareIcon = Share2;
 export const TreatmentPlanIcon = ClipboardList;
 export const SyringeIcon = Syringe;
@@ -85,6 +92,8 @@ export const CheckSquareIcon = CheckSquare;
 export const AlertTriangleIcon = AlertTriangle;
 export const ChevronUpIcon = ChevronUp;
 export const ChevronDownIcon = ChevronDown;
+export const ChevronLeftIcon = ChevronLeft;
+export const ChevronRightIcon = ChevronRight;
 export const SettingsIcon = Settings;
 export const SunIcon = Sun;
 export const DropletsIcon = Droplets;
@@ -110,6 +119,8 @@ export const BriefcaseIcon = Briefcase;
 export const ArrowUpIcon = ArrowUp;
 export const LayoutGridIcon = LayoutGrid;
 export const ListIcon = List;
+export const ArrowRightIcon = ArrowRight;
+export const LogOutIcon = LogOut;
 
 
 export const A360Logo: React.FC<{ logoUrl?: string, className?: string }> = ({ logoUrl, className }) => {

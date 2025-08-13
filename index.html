@@ -12,7 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
       body {
-        background: radial-gradient(75.26% 74.89% at 50% 67.99%, #A3C3DD 18.27%, #D0E1E9 42.79%, #DFE7ED 68.75%, #ECEFF0 78.37%, #FFF 92.31%);
+        background-color: #f8fafc; /* Fallback color: Tailwind slate-50 */
+        min-height: 100vh;
       }
       .tutorial-highlight {
         position: relative;
@@ -92,7 +93,8 @@
             },
             backgroundImage: {
               'aurora-gradient': 'linear-gradient(212deg,#76c453,#23ffe7,#8f66cb,#24abeb,#88d5c1)',
-              'hero-background': "url('https://storage.googleapis.com/generative-ai-proctor/v1/user_uploaded_content/11696001151608753239/project_542561955620/instance_7673998379434863261/file_14954756306563380482_abstract-bg.jpg')",
+              'login-hero': "url('https://ik.imagekit.io/0fheaxmfc/Image%20Login.jpg?updatedAt=1755007734328')",
+              'home-gradient': 'radial-gradient(75.26% 74.89% at 50% 67.99%, #A3C3DD 18.27%, #D0E1E9 42.79%, #DFE7ED 68.75%, #ECEFF0 78.37%, #FFF 92.31%)',
             },
             backgroundSize: {
               '300': '300% 300%',
@@ -109,7 +111,8 @@
     "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
     "uuid": "https://esm.sh/uuid@^11.1.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.417.0",
-    "@google/genai": "https://esm.sh/@google/genai"
+    "@google/genai": "https://esm.sh/@google/genai",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.45.0"
   }
 }
 </script>

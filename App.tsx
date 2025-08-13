@@ -1,18 +1,22 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Plan, PlanTemplate, Language, Definitions, Phase, Treatment, Translatable } from './types';
+import { Plan, PlanTemplate, Language, Definitions, Phase, Treatment, Translatable, User } from './types';
 import { Header } from './components/Header';
 import { TemplateSelector } from './components/TemplateSelector';
 import { PlanBuilder } from './components/PlanBuilder';
 import { PlanPreview } from './components/PlanPreview';
 import { AdminPage } from './components/AdminPage';
 import { Tutorial } from './components/Tutorial';
+import { Login } from './components/Login';
+import { Onboarding } from './components/Onboarding';
 import { generatePdf } from './services/pdfService';
 import { definitionService } from './services/definitionsService';
 import { getTranslator, TranslationKey } from './i18n';
 import { Button } from './components/common/Button';
 import { EyeIcon, CancelIcon, MessageCircleIcon, DownloadIcon } from './components/icons';
+import { supabase } from './services/supabaseService';
+import { Session } from '@supabase/supabase-js';
 
 type View = 'main' | 'admin';
 type TutorialType = 'main' | 'admin' | null;
@@ -48,10 +52,14 @@ const adminTutorialSteps = [
 ];
 
 const App: React.FC = () => {
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [currentPlan, setCurrentPlan] = useState<Plan | null>(null);
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('es');
   const [view, setView] = useState<View>('main');
-  const [definitions, setDefinitions] = useState<Definitions>(definitionService.loadDefinitions());
+  const [definitions, setDefinitions] = useState<Definitions>(definitionService.DEFAULT_DEFINITIONS);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const [activePhaseId, setActivePhaseId] = useState<string | null>(null);
   const [activeTutorial, setActiveTutorial] = useState<TutorialType>(null);
@@ -59,6 +67,59 @@ const App: React.FC = () => {
   
   const previewRef = React.useRef<HTMLDivElement>(null);
   const t = useMemo(() => getTranslator(language), [language]);
+  
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handleSessionChange = async () => {
+        if (session) {
+            const loadedDefs = await definitionService.loadDefinitions();
+            
+            const meta = session.user.user_metadata;
+            const appUser: User = {
+                id: session.user.id,
+                name: meta.full_name || 'User',
+                email: session.user.email || '',
+                practiceName: meta.practice_name || 'My Practice'
+            };
+
+            const updatedPracticeInfo = {
+                ...loadedDefs.practiceInfo,
+                name: appUser.practiceName,
+                provider: appUser.name,
+            };
+
+            const finalDefs = { ...loadedDefs, practiceInfo: updatedPracticeInfo };
+            
+            setUser(appUser);
+            setDefinitions(finalDefs);
+            
+            const onboardingCompleted = localStorage.getItem(`onboarding_completed_${appUser.id}`) === 'true';
+            if (!onboardingCompleted) {
+                setShowOnboarding(true);
+            }
+        } else {
+            setUser(null);
+            setCurrentPlan(null);
+            setView('main');
+            setDefinitions(definitionService.DEFAULT_DEFINITIONS);
+        }
+        setLoading(false);
+    };
+
+    handleSessionChange();
+  }, [session]);
+
 
   const startTutorial = (type: TutorialType) => {
     if (type === 'main') {
@@ -75,27 +136,37 @@ const App: React.FC = () => {
   const endTutorial = () => {
     setActiveTutorial(null);
   };
+  
+  const handleLogout = async () => {
+      setLoading(true);
+      const { error } = await supabase.auth.signOut();
+      if (error) console.error("Error logging out:", error);
+      // State will clear via onAuthStateChange listener
+      setLoading(false);
+  };
+
+  const handleFinishOnboarding = () => {
+    if (user) {
+        setShowOnboarding(false);
+        localStorage.setItem(`onboarding_completed_${user.id}`, 'true');
+    }
+  };
 
   const handleSelectTemplate = (template: PlanTemplate, patientData?: { name: string; age: number; sex: string }) => {
-    // Deep copy template to avoid mutation issues
     const newPlanData = JSON.parse(JSON.stringify(template));
 
-    // Hydrate treatments, ensuring contraindications is always a string
     const newPhases = newPlanData.phases.map((phase: Phase) => ({
         ...phase,
         treatments: phase.treatments.map((treatment: Treatment) => {
             let finalContraindications: string | undefined;
 
-            // Case 1: It's an object from an AI-generated template. Convert to string.
             if (typeof treatment.contraindications === 'object' && treatment.contraindications !== null) {
                 const contraTranslatable = treatment.contraindications as any as Translatable;
                 finalContraindications = contraTranslatable[language] || contraTranslatable.en;
             } 
-            // Case 2: It's already a valid string. Keep it.
             else if (typeof treatment.contraindications === 'string') {
                 finalContraindications = treatment.contraindications;
             } 
-            // Case 3: It's missing. Try to populate from definitions.
             else {
                 const def = definitions.categories[treatment.categoryKey]?.items.find(i => i.key === treatment.treatmentKey);
                 if (def?.defaults.contraindications) {
@@ -110,10 +181,9 @@ const App: React.FC = () => {
     const newPlan: Plan = {
       ...newPlanData,
       id: uuidv4(),
-      title: template.title[language], // Use translated title for the plan instance
-      notes: template.notes[language], // Use translated notes for the plan instance
+      title: template.title[language],
+      notes: template.notes[language],
       phases: newPhases,
-      // Populate practice and provider info from the central definitions
       practice: { ...definitions.practiceInfo },
       provider: definitions.practiceInfo.provider,
       patient: {
@@ -149,10 +219,6 @@ const App: React.FC = () => {
   };
 
   const handleDownloadPdf = async () => {
-    // On mobile, the preview might be hidden when the button is clicked from the header.
-    // To ensure the content is available, we can briefly show it.
-    // However, the best approach is to have the download button inside the preview context.
-    // For desktop, this will work fine. For mobile, the button is added inside the preview overlay.
     if (previewRef.current && currentPlan) {
       const fileName = `${currentPlan.patient.name}-Treatment-Plan`;
       await generatePdf(previewRef.current, fileName);
@@ -161,17 +227,27 @@ const App: React.FC = () => {
     }
   };
   
-  const handleSaveDefinitions = (newDefinitions: Definitions) => {
-    definitionService.saveDefinitions(newDefinitions);
-    setDefinitions(definitionService.loadDefinitions()); // Reload to ensure clean state
-    alert("Settings saved successfully!");
+  const handleSaveDefinitions = async (newDefinitions: Definitions) => {
+    try {
+        await definitionService.saveDefinitions(newDefinitions);
+        setDefinitions(newDefinitions);
+        alert("Settings saved successfully!");
+    } catch(e) {
+        console.error(e);
+        alert("Failed to save settings.");
+    }
   }
   
-  const handleResetDefinitions = () => {
+  const handleResetDefinitions = async () => {
     if(window.confirm("Are you sure you want to reset all definitions to their default values? This cannot be undone.")){
-      const defaultDefs = definitionService.resetDefinitions();
-      setDefinitions(defaultDefs);
-      alert("Settings have been reset to default.");
+      try {
+        const defaultDefs = await definitionService.resetDefinitions();
+        setDefinitions(defaultDefs);
+        alert("Settings have been reset to default.");
+      } catch(e) {
+          console.error(e);
+          alert("Failed to reset settings.");
+      }
     }
   }
 
@@ -193,7 +269,6 @@ const App: React.FC = () => {
     return (
        <div className="relative h-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full">
-          {/* Plan Builder */}
           <div className="lg:col-span-5 h-full overflow-y-auto bg-brand-background-soft">
             <PlanBuilder 
               plan={currentPlan} 
@@ -204,7 +279,6 @@ const App: React.FC = () => {
               setActivePhaseId={setActivePhaseId}
             />
           </div>
-          {/* Plan Preview (Desktop) */}
           <div className="hidden lg:block lg:col-span-7 h-full overflow-y-auto bg-brand-background-medium border-l border-brand-background-strong">
             <PlanPreview 
               plan={currentPlan} 
@@ -216,8 +290,6 @@ const App: React.FC = () => {
             />
           </div>
         </div>
-
-        {/* Mobile Preview Overlay */}
         {isPreviewVisible && (
              <div className="lg:hidden fixed inset-0 z-50 bg-brand-background-medium overflow-y-auto">
                 <PlanPreview 
@@ -248,8 +320,6 @@ const App: React.FC = () => {
                 </div>
              </div>
         )}
-
-        {/* Floating Action Button to show preview on mobile */}
         {!isPreviewVisible && (
             <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
                 <Button 
@@ -271,6 +341,21 @@ const App: React.FC = () => {
     activeTutorial === 'admin' ? adminTutorialSteps :
     [];
 
+  if (loading) {
+     return (
+        <div className="w-full h-screen flex items-center justify-center bg-gray-100">
+            <div className="flex flex-col items-center">
+                 <div className="w-12 h-12 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
+                 <p className="mt-4 text-brand-text-secondary">Loading Application...</p>
+            </div>
+        </div>
+     );
+  }
+
+  if (!session) {
+    return <Login language={language} />;
+  }
+
   return (
     <div className={`h-screen flex flex-col overflow-hidden transition-all duration-300 ${activeTutorial ? 'border-[10px] border-brand-primary rounded-xl shadow-2xl' : ''}`}>
       <Header 
@@ -284,12 +369,16 @@ const App: React.FC = () => {
         onSetView={setView}
         logoUrl={definitions.practiceInfo.logoUrl}
         onCreateBlankPlan={handleCreateBlankPlan}
+        onLogout={handleLogout}
+        isLoggedIn={!!user}
       />
-      <main className="flex-1 overflow-hidden">
+      <main className={`flex-1 overflow-hidden ${!currentPlan && view === 'main' ? 'bg-home-gradient' : 'bg-brand-background-soft'}`}>
         <div className="h-full overflow-y-auto">
           {renderContent()}
         </div>
       </main>
+
+      {showOnboarding && user && <Onboarding user={user} onFinish={handleFinishOnboarding} language={language} />}
 
        {!activeTutorial && !(view === 'main' && currentPlan) && (
          <div className="fixed bottom-6 right-6 z-40 group">

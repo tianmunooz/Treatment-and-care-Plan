@@ -9,7 +9,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export const Select: React.FC<SelectProps> = ({ label, id, wrapperClassName = '', Icon, children, ...props }) => {
-  const baseClasses = "block w-full pl-3 pr-10 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary sm:text-sm appearance-none";
+  const baseClasses = "block w-full pl-3 pr-10 py-3 rounded-lg focus:outline-none focus:border-blue-500 transition-colors sm:text-sm appearance-none";
   const styleClasses = "bg-white border border-brand-background-strong text-brand-text-primary";
   const iconColor = 'text-gray-400';
   const chevronColor = 'text-gray-700';

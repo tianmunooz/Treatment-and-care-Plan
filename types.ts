@@ -1,5 +1,4 @@
-
-
+import React from 'react';
 
 export type Language = 'en' | 'es';
 
@@ -9,6 +8,13 @@ export type DynamicFieldName = 'targetArea' | 'units' | 'volume' | 'vials' | 'do
 
 export type Translatable = {
   [key in Language]: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  practiceName: string;
 }
 
 export interface PracticeInfo {
@@ -150,6 +156,9 @@ export interface Definitions {
     templateCategories: OptionDefinition[];
     phaseTitles: OptionDefinition[];
   };
-  treatmentIcons: { [key in IconName]: { label: string; icon: React.ElementType } };
   planTemplates: PlanTemplate[];
+  treatmentIcons: { [key in IconName]: { icon: React.ElementType } };
 }
+
+// Represents the structure of definitions that can be safely serialized to JSON
+export type StoredDefinitions = Omit<Definitions, 'treatmentIcons'>;
